@@ -9,10 +9,11 @@ const specialtyController = require('../controller/specialty.contr');
 /* create products routes */
 router.post('/createSpecialty', specialtyController.createSpecialty);
 
-// router.get('/readSpecialty', specialtyController.readSpecialty);
-
 router.post('/readSpecialtyByName', specialtyController.readSpecialtyByName);
 
+router.put('/updateSpecialty', specialtyController.updateSpecialty)
+
+router.put('/deleteSpecialty', specialtyController.deleteSpecialty)
 
 /* To export router */ 
 module.exports = router;

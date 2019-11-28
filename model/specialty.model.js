@@ -5,10 +5,13 @@ var speacialtySchema = new mongoose.Schema({
         type : String, 
         required : true
     },
-
     crAt  : {                                  // Created At
         type:Date, 
         default:Date.now 
+    },
+    splStatus : {
+        type : String,
+        default : 'A'
     }
 });
 

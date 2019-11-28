@@ -37,22 +37,56 @@ module.exports.createSpecialty = async(req, res) => {
 };
 
 module.exports.readSpecialtyByName = async (req, res) => {
-    console.log("1111111111111111111111")
-    console.log(req.body)
-    var splData = null;
-    if (req.body.splName) {
-        splData = await specialty.find({splName : req.body.splName});
-    } else {
-        splData = await specialty.find({});
+    try {
+        var splData = null;
+        if (req.body.splName) {
+            splData = await specialty.find({splName : req.body.splName});
+        } else {
+            splData = await specialty.find({});
+        };
+
+        if (splData && splData.length === 0) {
+            return new Error("Please check & give the correct specialty name, There is no data in specialty collection..")
+        } else {
+            res.status(200).json(splData)
+        };
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
+
+module.exports.updateSpecialty = async (req,res) => {
+    if (!req.body.splName) {
+        res.status(500).json({
+            "data ": null,
+            "msg ": "splName is mandatory for update purpose!"
+        }); 
+        return;
     };
 
-    if (splData && splData.length === 0) {
-
-    } else {
-        
+    try {
+        var updateSplDocs = await specialty.updateOne({splName : req.body.splName},{"$set" : {splName : req.body.updateSplName}});
+        res.status(200).json(updateSplDocs)
+    } catch (error) {
+        res.status(500).json(error);
     }
+};
 
-    res.send(splData)
-}
+module.exports.deleteSpecialty = async (req, res) => {
+    if (!req.body.splName) {
+        res.status(500).json({
+            "data ": null,
+            "msg ": "splName is mandatory for delete purpose!"
+        }); 
+        return;
+    };
+    try {
+        var deleteSplDocs = await specialty.updateOne({splName : req.body.splName},{"$set" : {splStatus : "DA"}});
+        res.status(200).json(deleteSplDocs)
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
 
 

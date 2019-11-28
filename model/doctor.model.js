@@ -15,6 +15,10 @@ var doctorSchema = new mongoose.Schema({
     specialty : {
         type : Array,                           
         required : true
+    },
+    docStatus : {
+        type : String,
+        default : 'A'
     }
 });
 
