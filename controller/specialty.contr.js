@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const specialty = mongoose.model('specialty');
 
+/* 
+    Purpose : To create specialty docs
+    Input : specialty name and status
+*/
 module.exports.createSpecialty = async(req, res) => {
     if (!req.body.splName) {
         res.status(500).json({
@@ -34,6 +38,10 @@ module.exports.createSpecialty = async(req, res) => {
     }
 };
 
+/* 
+    Purpose : Get the specialty details based on specialty name,
+    Input : specialty name
+ */
 module.exports.readSpecialtyByName = async (req, res) => {
     try {
         var splData = null;
@@ -53,6 +61,10 @@ module.exports.readSpecialtyByName = async (req, res) => {
     }
 };
 
+/* 
+    Purpose : Update specialty docs
+    Input : specialty update name
+*/
 module.exports.updateSpecialty = async (req,res) => {
     if (!req.body.splName) {
         res.status(500).json({
@@ -70,6 +82,14 @@ module.exports.updateSpecialty = async (req,res) => {
     }
 };
 
+/* 
+    Purpose : Delete the specialty docs based on specialty name
+    Input : specialty name
+
+     Note     : If we want to delete any records, we shouldn't delete that record, we have to set a "Status"
+               # isActive = A(Active)  
+               # isActive = D(DeActive)
+*/
 module.exports.deleteSpecialty = async (req, res) => {
     if (!req.body.splName) {
         res.status(500).json({

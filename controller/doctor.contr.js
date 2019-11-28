@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 const doctor = mongoose.model('doctor');
 
+/* 
+    Purpose : To create doctor docs
+    Input : Doctor name, age and specialty
+*/
 module.exports.createDoctor = async(req, res) => {
     if (!req.body.docName) {
         res.status(500).json({
@@ -13,6 +17,7 @@ module.exports.createDoctor = async(req, res) => {
     try {
         let docRecords = await doctor.find({docName : req.body.docName});
 
+        /* Checking for duplicate */
         if (docRecords && docRecords.length === 0) {
             var ins_doctor = new doctor();
             ins_doctor.docName = req.body.docName;
@@ -36,6 +41,10 @@ module.exports.createDoctor = async(req, res) => {
     }
 };
 
+/* 
+    Purpose : Get the doctor details based on doctor name,
+    Input : Doctor name
+ */
 module.exports.readDcotortyByName = async (req, res) => {
     try {
         var docData = null;
@@ -55,6 +64,10 @@ module.exports.readDcotortyByName = async (req, res) => {
     }
 };
 
+/* 
+    Purpose : Update doctor docs
+    Input : Doctor update name, update age, update specialty
+*/
 module.exports.updateDoctor = async (req,res) => {
     if (!req.body.docName) {
         res.status(500).json({
@@ -79,6 +92,14 @@ module.exports.updateDoctor = async (req,res) => {
     }
 };
 
+/* 
+    Purpose : Delete the doctor docs based on doctor name
+    Input : Doctor name
+
+     Note     : If we want to delete any records, we shouldn't delete that record, we have to set a "Status"
+               # isActive = A(Active)  
+               # isActive = D(DeActive)
+*/
 module.exports.deleteDoctor = async (req, res) => {
     if (!req.body.docName) {
         res.status(500).json({
