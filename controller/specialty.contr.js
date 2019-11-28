@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const specialty = mongoose.model('specialty');
 
-
-
 module.exports.createSpecialty = async(req, res) => {
     if (!req.body.splName) {
         res.status(500).json({
@@ -54,7 +52,6 @@ module.exports.readSpecialtyByName = async (req, res) => {
         res.status(500).json(error);
     }
 };
-
 
 module.exports.updateSpecialty = async (req,res) => {
     if (!req.body.splName) {
